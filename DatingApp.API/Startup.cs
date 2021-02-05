@@ -38,6 +38,7 @@ namespace DatingApp.API
       services.AddMvc(x => x.EnableEndpointRouting = false).AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
       services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
       services.AddControllers();
+      services.AddAutoMapper(typeof(DatingRepository).Assembly);
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp.API", Version = "v1" });
@@ -56,7 +57,6 @@ namespace DatingApp.API
         });
       services.AddScoped<IAuthRepository, AuthRepository>();
       services.AddScoped<IDatingRepository, DatingRepository>();
-
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
